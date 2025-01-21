@@ -9,6 +9,7 @@ import Customer from "./components/customer/customer";
 import ProductList from "./components/ProductList";
 import { useState } from "react";
 import ParentComponent from "./components/parentComponent";
+import ProductLike from "./components/productdetail/productyoulike";
 
 export default function Home() {
   const [searchQuery] = useState("");
@@ -33,7 +34,7 @@ export default function Home() {
 
       {/* Dress Style Section */}
       <DressStyle />
-
+      <ProductLike/>
       {/* Product List Section */}
       <section className="p-10">
         <h2 className="text-2xl sm:text-3xl font-bold mb-4">All Products</h2>
