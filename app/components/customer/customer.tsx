@@ -1,23 +1,26 @@
 import Card from "../card/card"; 
-import { FaArrowRight } from "react-icons/fa6";
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 
 export default function Customer() {
   return (
-    <div className="flex flex-col justify-start items-center m-auto gap-6 px-4 sm:px-8 lg:px-16">
+    <div className="flex flex-col items-center m-auto gap-8 px-4 sm:px-8 lg:px-16 w-full max-w-[1440px]">
       {/* Heading Section */}
-      <div className="w-full flex flex-col sm:flex-row justify-between items-center mx-auto mb-8">
-        <h4 className="text-[#000000] text-[28px] sm:text-[32px] lg:text-[48px] font-bold leading-tight text-center sm:text-left mb-4 sm:mb-0">
+      <div className="w-full flex flex-col sm:flex-row justify-between items-center text-center sm:text-left mb-8">
+        <h4 className="text-[#000000] text-[24px] sm:text-[32px] lg:text-[48px] font-bold leading-tight">
           OUR HAPPY CUSTOMERS
         </h4>
-        <div className="flex justify-between items-center gap-2">
-          <FaArrowLeft className="w-[24px] h-[24px] text-2xl text-gray-700 cursor-pointer" />
-          <FaArrowRight className="w-[24px] h-[24px] text-2xl text-gray-700 cursor-pointer" />
+        <div className="flex gap-4 mt-4 sm:mt-0">
+          <button className="p-3 bg-gray-200 hover:bg-gray-300 rounded-full">
+            <FaArrowLeft className="w-6 h-6 text-gray-700" />
+          </button>
+          <button className="p-3 bg-gray-200 hover:bg-gray-300 rounded-full">
+            <FaArrowRight className="w-6 h-6 text-gray-700" />
+          </button>
         </div>
       </div>
 
       {/* Customer Cards Section */}
-      <div className="flex flex-wrap gap-6 justify-center lg:justify-start w-full">
+      <div className="flex flex-wrap justify-center gap-6 w-full">
         <Card
           text={"Sarah M."}
           p={
