@@ -7,14 +7,13 @@ import { useCart } from "@/app/components/context/cartContext"; // Import Cart C
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useCart(); // Access cart state
-
   const totalAmount = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <div className="w-[90%] max-w-[1440px] mx-auto mt-12 p-14 bg-[#F0F0F0] rounded-2xl">
+    <div className="w-[90%] max-w-[1440px] mx-auto mt-12 p-6 sm:p-8 lg:p-14 bg-[#F0F0F0] rounded-2xl">
       {/* Heading */}
       <div className="text-center mb-6">
-        <h1 className="font-IntegralCF text-4xl font-extrabold leading-[57.6px] my-12">
+        <h1 className="font-IntegralCF text-3xl sm:text-4xl font-extrabold my-6">
           Shopping Cart
         </h1>
       </div>
@@ -34,10 +33,10 @@ const Cart = () => {
             {cart.map((item) => (
               <div
                 key={item._id}
-                className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md"
+                className="flex flex-col sm:flex-row justify-between items-center bg-white p-4 rounded-lg shadow-md"
               >
-                <div className="flex items-center">
-                  <div className="relative w-[100px] h-[100px] mr-6">
+                <div className="flex items-center w-full sm:w-auto">
+                  <div className="relative w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] mr-4">
                     <Image
                       src={item.imageUrl}
                       alt={item.name}
@@ -47,11 +46,12 @@ const Cart = () => {
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg">{item.name}</h3>
-                    <p className="text-sm text-gray-500">Price: ${item.price}</p>
+                    <h3 className="font-bold text-base sm:text-lg">{item.name}</h3>
+                    <p className="text-xs sm:text-sm text-gray-500">Price: ${item.price}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
+
+                <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                   {/* Quantity Controls */}
                   <div className="flex items-center">
                     <button
@@ -88,7 +88,7 @@ const Cart = () => {
           </div>
 
           {/* Total and Checkout */}
-          <div className="flex justify-between items-center mt-8 p-4 bg-white rounded-lg shadow-md">
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-8 p-4 bg-white rounded-lg shadow-md">
             <div className="font-semibold text-lg">Total: ${totalAmount.toFixed(2)}</div>
             <Link href="/components/checkout">
               <div className="bg-blue-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 cursor-pointer">
@@ -101,7 +101,7 @@ const Cart = () => {
 
       {/* Floating Cart Icon */}
       <Link href="/cart">
-        <div className="fixed bottom-8 right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg cursor-pointer">
+        <div className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 bg-blue-500 text-white p-4 rounded-full shadow-lg cursor-pointer">
           <FiShoppingCart size={24} />
         </div>
       </Link>
