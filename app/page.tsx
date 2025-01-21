@@ -34,13 +34,14 @@ export default function Home() {
       {/* Dress Style Section */}
       <DressStyle />
 
-      {/* Customer Section */}
-      <Customer />
-
       {/* Product List Section */}
       <section className="p-10">
         <h2 className="text-2xl sm:text-3xl font-bold mb-4">All Products</h2>
         <ProductList category={""} searchQuery={searchQuery} />
+
+        {/* Customer Section */}
+      <Customer />
+
       </section>
     </div>
   );
