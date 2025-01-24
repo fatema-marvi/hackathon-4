@@ -10,17 +10,20 @@ import ProductList from "./components/ProductList";
 import { useState } from "react";
 import ParentComponent from "./components/parentComponent";
 import ProductLike from "./components/productdetail/productyoulike";
+import TopHeader from "./components/topheader/topheader";
 
 export default function Home() {
   const [searchQuery] = useState("");
 
   return (
-    <div className="max-w-full h-full flex-grow justify-start items-center px-4 sm:px-6 lg:px-8">
+    <div className="max-w-full h-full flex flex-col items-center ">
+      <TopHeader/>
       
      {/* ✅ ParentComponent - Navbar & Filters go here */}
      <ParentComponent/>  
      
       {/* Hero Section */}
+      <main className="w-full max-w-screen-xl px-4 sm:px-6 lg:px-8"></main>
       <Hero />
 
       {/* Logo Section */}
