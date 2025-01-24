@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FiShoppingCart } from "react-icons/fi";
@@ -17,7 +16,6 @@ const Navbar: React.FC<{ onSearch: (query: string) => void }> = ({ onSearch }) =
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -29,36 +27,28 @@ const Navbar: React.FC<{ onSearch: (query: string) => void }> = ({ onSearch }) =
   };
 
   return (
-    <nav
-      className={`font-IntegralCF w-full h-[100px] bg-white shadow-md fixed top-[50px] z-50 bg-cyan-1oo ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-[1170px] mx-auto flex justify-between items-center h-[80px] px-6">
+    <nav className={`w-full bg-white shadow-md transition duration-300 ease-in-out ${isScrolled ? "fixed top-0 z-50" : ""}`}>
+      <div className="max-w-[1170px] mx-auto flex justify-between items-center h-[80px] px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <div className="text-2xl font-bold">
           <Link href="/">SHOP.CO</Link>
         </div>
 
-        {/* Hamburger Menu for Small Screens */}
-        <button
-          className="lg:hidden text-2xl"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
+        {/* Hamburger Menu */}
+        <button className="lg:hidden text-2xl" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? "×" : "≡"}
         </button>
 
         {/* Navigation Links */}
         <div
-          className={`lg:flex ${isMenuOpen ? "block" : "hidden"} absolute lg:relative top-[80px] lg:top-0 left-0 w-full lg:w-auto bg-white lg:bg-transparent shadow-lg lg:shadow-none`}
+          className={`lg:flex ${isMenuOpen ? "absolute top-[80px] left-0 w-full bg-white shadow-md p-4" : "hidden"} lg:relative lg:top-0 lg:w-auto`}
         >
-          <ul className="flex flex-col lg:flex-row lg:items-center gap-6 text-base p-4 lg:p-0">
+          <ul className="flex flex-col lg:flex-row lg:items-center gap-6 text-base lg:p-0">
             {/* Shop Dropdown */}
             <li className="relative group">
               <span className="flex items-center gap-1 cursor-pointer hover:text-gray-700">
                 Shop <RiArrowDropDownLine className="text-2xl" />
               </span>
-              {/* Dropdown Menu */}
               <div className="absolute left-0 hidden group-hover:block bg-white shadow-md p-4 z-10 w-48">
                 <ul className="flex flex-col gap-2">
                   <li><Link href="/shop/men">Men</Link></li>
@@ -73,22 +63,19 @@ const Navbar: React.FC<{ onSearch: (query: string) => void }> = ({ onSearch }) =
           </ul>
         </div>
 
-        {/* Search Bar & Cart */}
-        <div className="flex items-center gap-6">
-          {/* Search Bar */}
+        {/* Search & Cart */}
+        <div className="flex items-center gap-4">
           <div className="flex items-center bg-gray-100 rounded-full px-4 py-2">
             <IoSearch className="text-gray-500 text-lg mr-2" />
             <input
-              id="search-input"
               type="text"
               placeholder="Search..."
               value={search}
               onChange={handleSearch}
-              className="bg-transparent outline-none text-sm w-[120px] sm:w-[180px] md:w-[250px]"
+              className="bg-transparent outline-none text-sm w-[100px] sm:w-[180px] md:w-[250px]"
             />
           </div>
 
-          {/* Cart Icon */}
           <Link href="/cart">
             <div className="relative cursor-pointer">
               <FiShoppingCart size={24} />
