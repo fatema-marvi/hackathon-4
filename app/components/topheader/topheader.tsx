@@ -12,9 +12,9 @@ const TopHeader = () => {
 
   return (
     isVisible && ( // Only render the banner if it is visible
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-black text-white">
+      <div className="fixed top-0 left-0 w-full bg-black text-white z-50">
         {/* Sale Banner */}
-        <div className="w-full h-[48px] flex justify-center items-center px-4 sm:px-8">
+        <div className="h-[48px] flex justify-center items-center px-4 sm:px-8 relative">
           <p className="text-gray-300 text-sm font-normal text-center sm:text-left">
             Sign up and get <span className="font-semibold">20% off</span> your first order. 
             <span className="underline font-medium hover:font-semibold ml-2 text-white cursor-pointer">
