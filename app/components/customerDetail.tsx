@@ -25,6 +25,7 @@ const CustomerDetail = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Submitting Order Form:", form); // Debugging
 
     try {
       const orderResponse = await fetch("/api/order", {
@@ -43,15 +44,18 @@ const CustomerDetail = () => {
           cartTotal,
           deliveryCharge,
           grandTotal,
+          
         }),
       });
 
+      const responseData = await orderResponse.json();
+    console.log("Server Response:", responseData); // Debugging
+
       if (!orderResponse.ok) {
-        throw new Error("Failed to create order");
+        throw new Error(responseData.message || "Failed to create order");
       }
 
-      const orderData = await orderResponse.json();
-      router.push(`/orderonfirmation?orderId=${orderData._id}`); // Redirect with order ID
+      router.push(`/order-confirmation?orderId=${responseData.orderId}`); // Redirect with order ID
     } catch (error) {
       console.error("Error creating order:", error);
     }
