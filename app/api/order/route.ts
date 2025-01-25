@@ -12,42 +12,53 @@ const client = createClient({
 export async function POST(req: Request) {
   try {
     const data = await req.json();
+    console.log("Received Order Data:", data); // Debugging
 
-    // Validate input data (avoid empty values)
-    if (!data.name || !data.email || !data.address || !data.city) {
+    // ✅ Fix: Validate fields correctly inside `customer`
+    const requiredCustomerFields = ["name", "email", "contactNumber", "address", "city"];
+    for (const field of requiredCustomerFields) {
+      if (!data.customer?.[field]) {
+        return NextResponse.json(
+          { success: false, message: `Missing required field: ${field}` },
+          { status: 400 }
+        );
+      }
+    }
+
+    // ✅ Fix: Validate `cartItems` instead of `items`
+    if (!data.cartItems || !Array.isArray(data.cartItems) || data.cartItems.length === 0) {
       return NextResponse.json(
-        { success: false, message: "Missing required fields" },
+        { success: false, message: "Cart is empty" },
         { status: 400 }
       );
     }
 
-    // Create the order in Sanity
+    // ✅ Fix: Use correct structure for Sanity
     const newOrder = await client.create({
       _type: "order",
-      name: data.name,
-      email: data.email,
-      contactNumber: data.contactNumber,
-      address: data.address,
-      city: data.city,
+      customer: {
+        name: data.customer.name,
+        email: data.customer.email,
+        contactNumber: data.customer.contactNumber,
+        address: data.customer.address,
+        city: data.customer.city,
+      },
       paymentMethod: data.paymentMethod,
       cartTotal: data.cartTotal,
       deliveryCharge: data.deliveryCharge,
       grandTotal: data.grandTotal,
-      items: data.items || [], // Ensure this is always an array
+      items: data.cartItems, // ✅ Use `cartItems` instead of `items`
     });
 
-    // Ensure a valid response body
     return NextResponse.json(
       { success: true, orderId: newOrder._id },
       { status: 200 }
     );
+
   } catch (error) {
     console.error("Order creation failed:", error);
-
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
     return NextResponse.json(
-      { success: false, message: "Failed to create order", error: errorMessage },
+      { success: false, message: "Failed to create order", error: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }
